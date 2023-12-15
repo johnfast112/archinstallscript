@@ -1,4 +1,6 @@
 #!/bin/sh
+#Please use fdisk or cfdisk to configure your drive
+#This script is designed to work with /dev/sda1 being your swap partition and /dev/sda2 being your bootable ext4 partition
 pacman -Sy archlinux-keyring --noconfirm
 mkfx.ext4 /dev/sda2
 mkswap /dev/sda1
