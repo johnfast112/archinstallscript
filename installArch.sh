@@ -1,13 +1,16 @@
 #!/bin/sh
-#Please use fdisk or cfdisk to configure your drive
-#This script is designed to work with /dev/sda1 being your swap partition and /dev/sda2 being your bootable ext4 partition
-#TODO remember how to use fdisk so that the partition step can be automated
-pacman -Sy archlinux-keyring --noconfirm
+pacman -Sy archlinux-keyring git glibc --noconfirm
+
+wipefs /dev/sda
+(echo o; echo n; echo p; echo 1; echo ; echo +512; echo p; echo n; echo p; echo 2; echo ; echo ; echo p; echo t; echo 1; echo 82; echo p) | fdisk /dev/sda
+
 mkfs.ext4 /dev/sda2
 mkswap /dev/sda1
 swapon /dev/sda1 
 mount /dev/sda2 /mnt
+
 pacstrap -K /mnt base linux linux-firmware neovim neofetch git grub sudo networkmanager
+
 genfstab -U /mnt >> /mnt/etc/fstab
 arch-chroot /mnt /bin/bash \
   -c "ln -sf /usr/share/zoneinfo/Canada/Mountain /etc/localtime && \
