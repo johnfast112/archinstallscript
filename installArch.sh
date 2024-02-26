@@ -2,7 +2,7 @@
 pacman -Sy archlinux-keyring git glibc --noconfirm
 
 wipefs /dev/sda
-(echo o; echo n; echo p; echo 1; echo ; echo +512; echo p; echo n; echo p; echo 2; echo ; echo ; echo p; echo t; echo 1; echo 82; echo p) | fdisk /dev/sda
+(echo o; echo n; echo p; echo 1; echo ; echo +512; echo p; echo n; echo p; echo 2; echo ; echo ; echo p; echo t; echo 1; echo 82; echo p; echo a; echo 1; echo w) | fdisk /dev/sda
 
 mkfs.ext4 /dev/sda2
 mkswap /dev/sda1
